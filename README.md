@@ -1,2 +1,2 @@
 # marine-system-control
-# Repository dedicated to containing ASV-UC-AUV code. 
+# Repository dedicated to ASV-UC-AUV code. 
