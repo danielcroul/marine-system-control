@@ -22,11 +22,6 @@
 % Yv, Yr, Yvdot, Yrdot
 % Nv, Nr, Nvdot, Nrdot
 %
-% List of calculated constants
-% W     Weight                              (1x1)
-% B     Buoyancy                            (1x1)
-% I     Inertia tensor                      (3x3)
-%
 % Notes: 
 % SI units are used. 
 %
