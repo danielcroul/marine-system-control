@@ -8,7 +8,6 @@
 % This is a structure with the following fields: 
 %
 % L     Vehicle length                      (1x1)
-% g     Gravity                             (1x1)
 % xG    COG relative to Ob                  (1x1)
 % yG    COG relative to Ob                  (1x1)
 % zG    COG relative to Ob                  (1x1)
@@ -25,8 +24,7 @@
 % Notes: 
 % SI units are used. 
 %
-wamv.L = 5;         % Length                    (m)                      
-wamv.g = 9.81;      % Gravity                   (m/s^2)                 
+wamv.L = 5;         % Length                    (m)                                     
 wamv.xG = 0;        % xCOG relative to Ob       (m)         
 wamv.yG = 0;        % yCOG relative to Ob       (m)        
 wamv.zG = 0;        % zCOG relative to Ob       (m)        
