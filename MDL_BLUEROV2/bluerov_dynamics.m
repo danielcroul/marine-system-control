@@ -89,9 +89,9 @@ tau = T1' + T2' + T3' + T4';
 %
 % Dimensional state derivative
 %
-nudot   = pinv(M)*(tau - C*[nu1; nu2] - D*[nu1; nu2] - Gn); % [ udot vdot wdot pdot qdot rdot ]
+nudot   = pinv(M)*(tau - C*[nu1; nu2] - D*[nu1; nu2] - Gn); % [ udot vdot wdot pdot qdot rdot ]'
 J       = eulerang(phi,theta,psi); 
-etadot  = J*[nu1; nu2];                                    % [ xdot ydot zdot phidot thetadot psidot ]
+etadot  = J*[nu1; nu2];                                     % [ xdot ydot zdot phidot thetadot psidot ]'
 
 xdot = [nudot; 
         etadot]; 
