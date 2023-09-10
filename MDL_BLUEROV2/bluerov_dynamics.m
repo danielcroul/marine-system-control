@@ -20,18 +20,19 @@ function xdot = bluerov_dynamics(t,x,ui,brov)
 %
 % The input vector is :
 %
-% TO DO ...
+% T200 thruster rpms
+% ui = [ rpm1 rpm2 rpm3 rpm4 ] 
 % 
 % Check input and state dimensions
 if (length(x) ~= 12),error('x-vector must have dimension 12!');end
-if (length(ui) ~= 6),error('u-vector must have dimension 6!');end
+if (length(ui) ~= 4),error('u-vector must have dimension 6!');end
 %  
 % Extract state vector elements
 %
-nu1  = x(1:3);      % [ u v w ]                 (1x3)
-nu2  = x(4:6);      % [ p q r ]                 (1x3)
-eta1 = x(7:9);      % [ x y z ]                 (1x3)
-eta2 = x(10:12);    % [ phi theta psi ]         (1x3)
+nu1  = x(1:3);      % [ u v w ]'                 (3x1)
+nu2  = x(4:6);      % [ p q r ]'                 (3x1)
+eta1 = x(7:9);      % [ x y z ]'                 (3x1)
+eta2 = x(10:12);    % [ phi theta psi ]'         (3x1)
 u = nu1(1); 
 v = nu1(2); 
 w = nu1(3); 
@@ -53,8 +54,8 @@ M   = Mrb + Ma;
 %
 % CORIOLIS MATRIX
 %
-Crb = [zeros(3) -brov.m*Smtrx(nu1)-brov.m*Smtrx(nu2)*Smtrx(brov.cog); -brov.m*Smtrx(nu1)+brov.m*Smtrx(brov.cog)*Smtrx(nu2) -Smtrx(brov.I*nu2')]; 
-Ca  = [zeros(3) -Smtrx(MA(1:3,1:3)*nu1'+MA(1:3,4:6)*nu2'); -Smtrx(MA(1:3,1:3)*nu1'+MA(1:3,4:6)*nu2') -Smtrx(MA(4:6,1:3)*nu1'+MA(4:6,4:6)*nu2')]; 
+Crb = [zeros(3) -brov.m*Smtrx(nu1)-brov.m*Smtrx(nu2)*Smtrx(brov.cog); -brov.m*Smtrx(nu1)+brov.m*Smtrx(brov.cog)*Smtrx(nu2) -Smtrx(brov.I*nu2)]; 
+Ca  = [zeros(3) -Smtrx(Ma(1:3,1:3)*nu1+Ma(1:3,4:6)*nu2); -Smtrx(Ma(1:3,1:3)*nu1+Ma(1:3,4:6)*nu2) -Smtrx(Ma(4:6,1:3)*nu1+Ma(4:6,4:6)*nu2)]; 
 C   = Crb + Ca; 
 %
 % DRAG MATRIX
@@ -71,12 +72,26 @@ Gn = [(brov.W - brov.B)*sin(theta);
        brov.yB*brov.B*cos(theta)*cos(phi)-brov.zB*brov.B*cos(theta)*sin(phi); 
        -brov.zB*brov.B*sin(theta)-brov.xB*brov.B*cos(theta)*cos(phi);
        brov.xB*brov.B*cos(theta)*sin(phi)+brov.yB*brov.B*sin(theta)]; 
+%
+% Thruster forces 
 % 
+Tmax = 10;                  % maximum thrust force
+nmax = 150;                 % maximum rpm
+F1 = ui(1)/nmax*Tmax; 
+F2 = ui(2)/nmax*Tmax; 
+F3 = ui(3)/nmax*Tmax; 
+F4 = ui(4)/nmax*Tmax;
+T1 = [F1 0 0 0 0.085*F1 0.218*F1]; 
+T2 = [F2 0 0 0 0.085*F2 -0.218*F2]; 
+T3 = [0 0 F3 -0.218*F3 0 0]; 
+T4 = [0 0 F4 0.218*F4 0 0]; 
+tau = T1' + T2' + T3' + T4'; 
+%
 % Dimensional state derivative
 %
-nudot   = pinv(M)*(tau - C*[nu1 nu2]' - D*[nu1 nu2]' - Gn); % [ udot vdot wdot pdot qdot rdot ]
+nudot   = pinv(M)*(tau - C*[nu1; nu2] - D*[nu1; nu2] - Gn); % [ udot vdot wdot pdot qdot rdot ]
 J       = eulerang(phi,theta,psi); 
-etadot  = J*[nu1 nu2]';                                    % [ xdot ydot zdot phidot thetadot psidot ]
+etadot  = J*[nu1; nu2];                                    % [ xdot ydot zdot phidot thetadot psidot ]
 
 xdot = [nudot; 
         etadot]; 
