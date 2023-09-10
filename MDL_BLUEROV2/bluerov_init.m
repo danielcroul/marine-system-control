@@ -19,7 +19,7 @@ thetad = 0*ones(1,length(t));
 psid = 0*ones(1,length(t)); 
 
 % Initialise 
-xout = init; 
+xout = init'; 
 xd = [xposd; yposd; zposd; phid; thetad; psid]; 
 
 end
