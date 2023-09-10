@@ -22,8 +22,8 @@ if (length(ui) ~= 4),error('u-vector must have dimension 4!');end
 %  
 % Extract state vector elements
 %
-nu  = x(1:3);      % [ u v r ]      (1x3)
-eta = x(4:6);      % [ x y psi ]    (1x3)
+nu  = x(1:3);      % [ u v r ]'      (3x1)
+eta = x(4:6);      % [ x y psi ]'    (3x1)
 u = nu(1); 
 v = nu(2); 
 r = nu(3); 
@@ -52,9 +52,9 @@ D = Dl + Dn;
 % 
 % Dimensional state derivative
 %
-nudot = pinv(M)*(tau - C*nu' - D*nu');                      % [ udot vdot rdot ]
+nudot = pinv(M)*(tau - C*nu - D*nu);                      % [ udot vdot rdot ]'
 J = [cos(psi) -sin(psi) 0; sin(psi) cos(psi) 0; 0 0 1]; 
-etadot = J*nu';                                             % [ xdot ydot psidot ]
+etadot = J*nu;                                             % [ xdot ydot psidot ]'
 
 xdot = [nudot; 
         etadot]; 
