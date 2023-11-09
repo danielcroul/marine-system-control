@@ -1,6 +1,6 @@
 function [xinit, ninit] = asv_init(t)
 % [xinit, ninit] = asv_init(t) returns initial values of asv state
-% parameters with xinit = [ u0 v0 w0 p0 q0 r0 x0 y0 z0 phi0 theta0 psi0 ],
+% parameters with xinit = [ u0 v0 r0 x0 y0 psi0 ],
 %
 % Initial conditions for x = [ u v r x y psi ]'
 %

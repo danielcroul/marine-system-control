@@ -10,6 +10,6 @@ xinit = [nu, eta]';                 % Combined                                  
 %
 % Propeller revolutions (rps)
 %
-ninit = [50 50 0 0]';               % ninit = [ n_left n_right n_left_top n_right_top ]'
+ninit = [5 5 0 0]';               % ninit = [ n_left n_right n_left_top n_right_top ]'
 %
 end
