@@ -39,13 +39,6 @@ faces = [
 ];
 
 % Plot the cuboid
-% figure;
 patch('Vertices', vertices, 'Faces', faces, 'FaceColor', 'k', 'EdgeColor', 'k','FaceAlpha',0.2);
-% grid on;
-% xlabel('X-axis');
-% ylabel('Y-axis');
-% zlabel('Z-axis');
-% title('3D Cuboid');
-% axis equal;
-% view(-65.9, 26.325)
+
 end

@@ -20,18 +20,8 @@ rotated_unit_y = R* unit_y';
 rotated_unit_z = R * unit_z';
 
 % Plot the rotated unit vectors
-% figure;
-% hold on;
 quiver3(centre(1), centre(2), centre(3), rotated_unit_x(1), rotated_unit_x(2), rotated_unit_x(3), 'r', 'LineWidth', 2, 'MaxHeadSize', 0.2);
 quiver3(centre(1), centre(2), centre(3), rotated_unit_y(1), rotated_unit_y(2), rotated_unit_y(3), 'g', 'LineWidth', 2, 'MaxHeadSize', 0.2);
 quiver3(centre(1), centre(2), centre(3), rotated_unit_z(1), rotated_unit_z(2), rotated_unit_z(3), 'b', 'LineWidth', 2, 'MaxHeadSize', 0.2);
-% xlabel('X-axis');
-% ylabel('Y-axis');
-% zlabel('Z-axis');
-% title('Rotated Unit Vectors');
-% axis equal;
-% grid on;
-% view(3);
-% hold off;
 
 end
