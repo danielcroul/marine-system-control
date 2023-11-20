@@ -1,4 +1,4 @@
-function yout = ode4cable(F,t0,h,tfinal,y0, ui,const,quad)
+function yout = ode4cable(F,t0,h,tfinal,y0, ui,const,sys)
 % ODE4  Classical Runge-Kutta ODE solver.
 %   yout = ODE4(F,t0,h,tfinal,y0) uses the classical
 %   Runge-Kutta method with fixed step size h on the interval
@@ -17,10 +17,10 @@ function yout = ode4cable(F,t0,h,tfinal,y0, ui,const,quad)
      
      u = ui(:,k); 
 
-     s1 = F(t,y,u,const,quad);
-     s2 = F(t+h/2, y+h*s1/2,u,const,quad);
-     s3 = F(t+h/2, y+h*s2/2,u,const,quad);
-     s4 = F(t+h, y+h*s3,u,const,quad);
+     s1 = F(t,y,u,const,sys);
+     s2 = F(t+h/2, y+h*s1/2,u,const,sys);
+     s3 = F(t+h/2, y+h*s2/2,u,const,sys);
+     s4 = F(t+h, y+h*s3,u,const,sys);
      y = y + h*(s1 + 2*s2 + 2*s3 + s4)/6;
 
      % store state vector 

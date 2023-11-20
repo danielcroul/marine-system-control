@@ -1,4 +1,4 @@
-function yout = ode4(F,t0,h,tfinal,y0,uin, asv)
+function yout = ode4(F,t0,h,tfinal,y0,uin, sys)
 % ODE4  Classical Runge-Kutta ODE solver.
 %   yout = ODE4(F,t0,h,tfinal,y0) uses the classical
 %   Runge-Kutta method with fixed step size h on the interval
@@ -15,10 +15,10 @@ function yout = ode4(F,t0,h,tfinal,y0,uin, asv)
   u = uin;
   for t = t0 : h : tfinal-h   
      
-     s1 = F(t,y,u,asv);
-     s2 = F(t+h/2, y+h*s1/2,u,asv);
-     s3 = F(t+h/2, y+h*s2/2,u,asv);
-     s4 = F(t+h, y+h*s3,u,asv);
+     s1 = F(t,y,u,sys);
+     s2 = F(t+h/2, y+h*s1/2,u,sys);
+     s3 = F(t+h/2, y+h*s2/2,u,sys);
+     s4 = F(t+h, y+h*s3,u,sys);
      y = y + h*(s1 + 2*s2 + 2*s3 + s4)/6;
      yout = [yout y]; %ok
      k=k+1;
